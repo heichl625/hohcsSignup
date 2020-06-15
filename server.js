@@ -7,12 +7,13 @@ const passport = require("passport");
 const cors = require('cors');
 const findOrCreate = require('mongoose-findorcreate');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 const app = express();
 
 var PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://admin-Leo:f99h-DJkdz7EF@i@cluster0-imcsw.mongodb.net/hohcsDB?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -97,13 +98,12 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(client/build));
-}
+app.use(express.static(path.join(__dirname, "client", "build")));
 
-app.get("/", (req, res) => {
-    res.send("Hello World");
-});
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+})
 
 app.post("/login",
     passport.authenticate('local', {
