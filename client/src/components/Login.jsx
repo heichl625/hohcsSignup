@@ -64,7 +64,7 @@ function Login() {
 
         fetch(url, options)
         .then(res => {
-            if(res.status !== 401){
+            if(res.status === 200){
                 return res.json();
             }else{
                 return "error";
@@ -91,7 +91,7 @@ function Login() {
                 })
             }
             
-        })
+        });
     }
 
     return(

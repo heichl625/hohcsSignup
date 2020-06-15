@@ -58,13 +58,24 @@ export default function Register(){
         };
 
         fetch(url, options)
-        .then(res => res.json())
         .then(res => {
-            localStorage.setItem('userToken', res.token);
-            localStorage.setItem('isAuthorized', true);
-            localStorage.setItem('username', res.user.username);
-            setRegister(true);
-            console.log("Ready to redirect");
+            if(res.status === 200){
+                return res.json();
+            }else{
+                return "error";
+            }
+        })
+        .then(res => {
+            if(res !== "error"){
+                localStorage.setItem('userToken', res.token);
+                localStorage.setItem('isAuthorized', true);
+                localStorage.setItem('username', res.user.username);
+                setRegister(true);
+                console.log("Ready to redirect");
+            }else{
+                alert("未能成功註冊，請再嘗試");
+            }
+            
         })
     }
 

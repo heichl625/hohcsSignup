@@ -1,0 +1,358 @@
+html {
+    min-height: 100%;
+}
+
+body{
+    background-color: #f0f0f0 !important;
+    background-image: url("https://www.transparenttextures.com/patterns/diamonds-are-forever.png");
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+    padding-bottom: 2%;
+}
+
+.adminLink{
+    margin-right: 3%;
+}
+
+
+/* Login Page */
+
+.icon{
+    width: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formInput{
+    width: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginInput{
+    width: 300px !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginBtn {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+}
+
+.remindText{
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.registerBtn {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginError{
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+
+/* Register Page */
+
+.icon-register{
+    width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.inputGroup{
+    display: block;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+}
+
+.inputLabel{
+    margin-left: 5%;
+    margin-bottom: 2%;
+}
+
+
+.input{
+    margin: 0 0 0 10px !important;
+    width: 500px;
+}
+
+
+/* Application Form */
+.formIcon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+}
+
+.inputForm{
+    width:900px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.inputRow{
+    display: table;
+    box-sizing: border-box;
+    table-layout: fixed;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.inputItem{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.btnWrapper{
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.submitBtn {
+    font-size: 20px;
+    margin-top: 20px;
+    flex: 0 1 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.clearBtn{
+    flex: 0 1 auto;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: auto; 
+}
+
+
+.form-control{
+    margin: 10px;
+}
+
+
+/* Admin */
+
+.sidebar{
+    height: 100vh;
+    background-color: white;
+    opacity: 0.8;
+    color: black;
+    width: 300px;
+    position: fixed;
+    border-right: solid 1px darkgrey;
+    overflow: scroll !important;
+    padding-bottom: 5%;
+}
+
+.sidebarTitle{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 50px;
+    position: fixed;
+    width: 300px;
+    text-align: center;
+    border-bottom: solid 1px darkgrey;
+    border-right: solid 1px darkgrey;
+    background-color: rgb(244, 244, 244);
+}
+
+.courseLink{
+    border-bottom: solid lightgrey 1px;
+}
+
+.courseLink:first-child{
+    margin-top: 50px;
+}
+
+.noCourse{
+    margin-top: 16%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.detailCard{
+    margin-left:350px; 
+    margin-top: 20px;
+    margin-right: 50px;
+}
+
+.cardDetailWrapper{
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    height: 60px;
+}
+
+.courseTitle{
+    flex: 0 1 auto;
+    position: absolute;
+    left: 50%;
+    font-size: 2rem;
+    transform: translateX(-50%);
+}
+
+.deleteBtn{
+    flex: 0 1 auto;
+    margin-left: auto;
+}
+
+.courseDescription{
+    text-align: center;
+    margin-bottom: 20px !important;
+}
+
+.courseInfo{
+    text-align: center;
+}
+
+.adminEnrollRecordBtn{
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Enroll detail */
+
+.enrollHeaderWrapper{
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    height: 60px;
+}
+
+.backBtn{
+    flex: 0 1 auto;
+    position: absolute;
+    left: 2%;
+}
+
+.enrollDetailTitle{
+    left: 50%;
+    flex: 0 1 auto;
+    position: absolute;
+    font-size: 2rem;
+    transform: translateX(-50%);
+}
+
+.waitinglistBtn{
+    margin-left: auto;
+}
+
+/* Create Course */
+
+.courseDescriptionText{
+    margin-left: 15px;
+    margin-bottom: 0;
+}
+
+.createCourseTitle{
+    text-align: center;
+    margin-top: 5%;
+}
+
+.createBtn{
+    display: block !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.active{
+    background-color: rgba(235, 235, 235, 0.817);
+}
+
+.navbar-dark .navbar-nav .nav-link{
+    background-color: #457BFF;
+    color: rgba(255,255,255,.5) !important;
+}
+
+.registerDetailTitle{
+    margin-left: 50%;
+    margin-top: 5%;
+}
+
+.registerWaitinglistBtn{
+    margin-top: 7%;
+    margin-left: 40%;
+}
+
+@media (max-width: 1024px){  
+
+    /* Application Form */
+   
+    .inputForm{
+        width:400px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .inputRow{
+        display: block;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .inputItem{
+        display: block;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .btnWrapper{
+        display: block !important;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5%;
+    }
+    
+    .submitBtn {
+        display: inline !important;
+        margin-left: auto;
+        margin-right: 70%;
+        position: relative;
+    }
+    
+    .clearBtn{
+        display: inline !important;
+        position: relative;
+        margin-left: 32%;
+        margin-right: auto; 
+    }
+
+  }
+
