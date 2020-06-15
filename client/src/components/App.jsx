@@ -23,14 +23,16 @@ export default function App(props) {
         axios.get("/isAuthenticated",  
         { headers:
             { 
-                'Content-Type' : 'Application/json',
-                'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                "Content-Type" : "Application/json",
+                "Authorization": `Bearer ${localStorage.getItem('userToken')}`
             }
         })
         .then(res => {
-            localStorage.setItem('isAuthorized', true);
+            console.log("Authorizing");
+            localStorage.setItem("isAuthorized", true);
         }).catch(function (error) {
-            localStorage.removeItem('isAuthorized');
+            console.log(error);
+            localStorage.removeItem("isAuthorized");
         });
     })
 

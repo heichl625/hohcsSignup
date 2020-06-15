@@ -51,8 +51,8 @@ export default function Register(){
         const options = {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify(user)
         };

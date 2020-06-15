@@ -46,8 +46,8 @@ function Login() {
     function handleSubmit(event){
 
         const user = {
-            username: userData.username,
-            password: userData.password
+            "username": userData.username,
+            "password": userData.password
         }
 
         event.preventDefault();
@@ -56,8 +56,8 @@ function Login() {
         const options = {
             method: 'POST',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify(user)
         };
@@ -91,6 +91,8 @@ function Login() {
                 })
             }
             
+        }).catch(err => {
+            console.log("Login: " + err);
         });
     }
 
@@ -101,7 +103,7 @@ function Login() {
     { reLogin && <p className="loginError">登入電郵或密碼錯誤，請重新輸入</p> }
     
     {/* onSubmit={handleSubmit} */}
-        <Form action="/login" method="post" onSubmit={handleSubmit} className="formInput">
+        <Form onSubmit={handleSubmit} className="formInput">
             
                     <InputGroup className="loginInput">
                         <Form.Control placeholder="電郵" className="input" name="username" onChange={handleChange} value={userData.username}></Form.Control>

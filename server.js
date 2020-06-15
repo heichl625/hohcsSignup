@@ -268,7 +268,14 @@ app.get('/futureCourse', (req, res) => {
         }
     }, (err, foundCourse) => {
         if (!err) {
-            res.json(foundCourse);
+            if(foundCourse){
+                console.log(res.text());
+                res.json(foundCourse);
+            }else{
+                console.log("No Course found");
+                res.sendStatus(403);
+            }
+            
         }else{
             res.sendStatus(403);
         }

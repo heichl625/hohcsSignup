@@ -29,17 +29,18 @@ function ApplicationForm(){
 
     function getFutureCourses(){
 
-        const futureCourseURL = '/futureCourse';
+        const futureCourseURL = "/futureCourse";
         const futureCourseOptions = {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Accept': 'application/json',
+              "Accept": "application/json; odata: verbose"
             }
         };
 
         fetch(futureCourseURL, futureCourseOptions)
         .then(res => res.text())
         .then(res => {
+            console.log(res);
             const resJson = JSON.parse(res.text);
             if(resJson.length > 0){
                     console.log("CourseList[0]: " + resJson[0].courseName);
@@ -58,8 +59,9 @@ function ApplicationForm(){
                     console.log(courseList);
                 }
             setIsDataObtained(true);
-        })
-
+        }).catch(err => {
+            console.log("futureCourse: " + err);
+        });
     }
 
     useEffect( () => {
@@ -67,14 +69,14 @@ function ApplicationForm(){
         console.log("render");
 
         if(!isDataObtained){
-            const url = '/user';
+            const url = "/user";
             const options = {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/x-www-form-urlencoded'
+                  "Accept": "application/json",
+                  "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: qs.stringify({username: localStorage.getItem('username')})
+                body: qs.stringify({"username": localStorage.getItem("username")})
             };
 
             fetch(url, options)
@@ -95,9 +97,11 @@ function ApplicationForm(){
                     dept: res.dept,
                     course: "",
                 })
-            })
-            getFutureCourses();
+            }).catch(err => {
+                console.log("user: " + err);
+            });
         }
+            getFutureCourses();
 
     })
 
@@ -105,17 +109,17 @@ function ApplicationForm(){
 
         console.log(course);
 
-        const url = '/enroll';
+        const url = "/enroll";
         const options = {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
-                courseID: course._id, 
-                enrollment: newValue,
-                registeredBy: localStorage.getItem("username")
+                "courseID": course._id, 
+                "enrollment": newValue,
+                "registeredBy": localStorage.getItem("username")
             })
         };
 
@@ -139,24 +143,27 @@ function ApplicationForm(){
             }else{
                 alert("未能成功報讀課程, 請稍後再嘗試");
             }
-        })
-
+        }).catch(err => {
+            console.log("enroll: " + err);
+        });
     }
+
+
 
     function waitinglist(courseName, courseDate){
 
-        const url = '/waitinglist';
+        const url = "/waitinglist";
         const options = {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
-                courseName: courseName,
-                courseDate: courseDate,
-                enrollment: newValue,
-                registeredBy: localStorage.getItem("username")
+                "courseName": courseName,
+                "courseDate": courseDate,
+                "enrollment": newValue,
+                "registeredBy": localStorage.getItem("username")
             })
         };
 
@@ -180,13 +187,11 @@ function ApplicationForm(){
             }else{
                 alert("發生錯誤，請稍後再嘗試");
             }
-        })
-
-
-
-
-
+        }).catch(err => {
+            console.log("waitinglist: " + err);
+        });
     }
+
 
     function checkQuota(){
 
@@ -197,16 +202,16 @@ function ApplicationForm(){
         const courseName = newValue.course.split(' ')[0];
         const courseDate = newValue.course.split(' ')[1];
 
-        const url = '/checkQuota';
+        const url = "/checkQuota";
         const options = {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'
+              "Accept": "application/json",
+              "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
-                courseName: courseName,
-                courseDate: courseDate
+                "courseName": courseName,
+                "courseDate": courseDate
             })
         };
 
@@ -227,7 +232,9 @@ function ApplicationForm(){
                 console.log("Enrolled");
                 enroll(res);
             }
-        })
+        }).catch(err => {
+            console.log("Login: " + err);
+        });
     }
 
 
