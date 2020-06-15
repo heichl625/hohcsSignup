@@ -38,14 +38,15 @@ function ApplicationForm(){
         };
 
         fetch(futureCourseURL, futureCourseOptions)
-        .then(res => res.json())
+        .then(res => res.text())
         .then(res => {
-            if(res.length > 0){
-                    console.log("CourseList[0]: " + res[0].courseName);
-                    setCourseList(res);
+            const resJson = JSON.parse(res.text);
+            if(resJson.length > 0){
+                    console.log("CourseList[0]: " + resJson[0].courseName);
+                    setCourseList(resJson);
                     setNewValue(prevValue => {
     
-                        const date = new Date(res[0].date);
+                        const date = new Date(resJson[0].date);
                         const dateStr = date.toLocaleDateString();
     
                         return{
