@@ -24,6 +24,7 @@ export default function App(props) {
         { headers:
             { 
                 "Content-Type" : "Application/json",
+                'Accept': 'application/json',
                 "Authorization": `Bearer ${localStorage.getItem('userToken')}`
             }
         })

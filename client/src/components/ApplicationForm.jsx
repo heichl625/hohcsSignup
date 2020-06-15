@@ -33,7 +33,8 @@ function ApplicationForm(){
         const futureCourseOptions = {
             method: "GET",
             headers: {
-              "Accept": "application/json; odata: verbose"
+              "Accept": "application/json; odata: verbose",
+              "Content-Type": "application/json"
             }
         };
 
@@ -74,7 +75,7 @@ function ApplicationForm(){
                 method: "POST",
                 headers: {
                   "Accept": "application/json",
-                  "Content-Type": "application/x-www-form-urlencoded"
+                  "Content-Type": "application/json"
                 },
                 body: qs.stringify({"username": localStorage.getItem("username")})
             };

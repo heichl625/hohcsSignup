@@ -12,9 +12,30 @@ function Header(){
 
 
     function handleLogout(){
-        localStorage.clear();
-        setLoggedOut("true");
-       
+
+        const url = '/logout';
+        const options = {
+            method: "GET",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            }
+        };
+
+        fetch(url, options)
+        .then(res => {
+            if(res.status === 200){
+                alert("登出成功");
+                localStorage.clear();
+                setLoggedOut("true");
+            }else{
+                return "error";
+            }
+            
+        }).catch(err => {
+            console.log("Login: " + err);
+        });
+
     }
 
     return (

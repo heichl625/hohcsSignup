@@ -214,11 +214,11 @@ app.post("/user", (req, res) => {
 
 })
 
-app.post("/logout", (req, res) => {
+app.get("/logout", (req, res) => {
     console.log("logout now");
     console.log(req.user);
     req.logout();
-    res.send(true);
+    res.sendStatus(200);
 })
 
 app.post("/createcourse", (req, res) => {
