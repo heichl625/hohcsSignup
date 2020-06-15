@@ -33,22 +33,20 @@ function ApplicationForm(){
         const futureCourseOptions = {
             method: "GET",
             headers: {
-              "Accept": "application/json; odata: verbose",
-              "Content-Type": "application/json"
+              "Accept": "application/json",
             }
         };
 
         fetch(futureCourseURL, futureCourseOptions)
-        .then(res => res.text())
+        .then(res => res.json())
         .then(res => {
-            console.log(res);
-            const resJson = JSON.parse(res.text);
-            if(resJson.length > 0){
-                    console.log("CourseList[0]: " + resJson[0].courseName);
-                    setCourseList(resJson);
+            console.log("future Course");
+            if(res.length > 0){
+                    console.log("CourseList[0]: " + res[0].courseName);
+                    setCourseList(res);
                     setNewValue(prevValue => {
     
-                        const date = new Date(resJson[0].date);
+                        const date = new Date(res[0].date);
                         const dateStr = date.toLocaleDateString();
     
                         return{
@@ -75,7 +73,7 @@ function ApplicationForm(){
                 method: "POST",
                 headers: {
                   "Accept": "application/json",
-                  "Content-Type": "application/json"
+                  "Content-Type": "application/x-www-form-urlencoded"
                 },
                 body: qs.stringify({"username": localStorage.getItem("username")})
             };

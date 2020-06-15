@@ -100,11 +100,6 @@ passport.deserializeUser(function (id, done) {
 
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-})
-
 app.post("/login",
     passport.authenticate('local', {
         session: false
@@ -269,7 +264,7 @@ app.get('/futureCourse', (req, res) => {
     }, (err, foundCourse) => {
         if (!err) {
             if(foundCourse){
-                console.log(res.text());
+                console.log(foundCourse);
                 res.json(foundCourse);
             }else{
                 console.log("No Course found");
@@ -701,6 +696,10 @@ app.post("/deleteCourse", (req, res) => {
         }
     })
 
+})
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 })
 
 

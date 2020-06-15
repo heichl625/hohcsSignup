@@ -19,7 +19,7 @@ export default function App(props) {
     
 
     useEffect(() => {
-        console.log("render");
+        console.log("App");
         axios.get("/isAuthenticated",  
         { headers:
             { 

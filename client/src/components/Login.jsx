@@ -57,7 +57,7 @@ function Login() {
             method: 'POST',
             headers: {
               "Accept": "application/json",
-              "Content-Type": "application/json"
+              "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify(user)
         };

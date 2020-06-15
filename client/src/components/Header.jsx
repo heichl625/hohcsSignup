@@ -25,6 +25,7 @@ function Header(){
         fetch(url, options)
         .then(res => {
             if(res.status === 200){
+                console.log("Logout now");
                 alert("登出成功");
                 localStorage.clear();
                 setLoggedOut("true");
