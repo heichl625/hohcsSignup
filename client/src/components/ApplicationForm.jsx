@@ -99,8 +99,9 @@ function ApplicationForm(){
             }).catch(err => {
                 console.log("user: " + err);
             });
-        }
             getFutureCourses();
+        }
+            
 
     })
 
