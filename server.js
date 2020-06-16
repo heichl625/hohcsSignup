@@ -12,11 +12,7 @@ const app = express();
 
 var PORT = process.env.PORT || 5000;
 
-// "mongodb://localhost:27017/hohcsDB"
-
-
-
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://admin-Leo:f99h-DJkdz7EF@i@cluster0-imcsw.mongodb.net/hohcsDB?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/hohcsDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -29,7 +25,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 app.use(session({
-    secret: process.env.JWT_SECRECT || "hohcsSecret",
+    secret: process.env.JWT_SECRECT || "my_secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
