@@ -40,9 +40,7 @@ function ApplicationForm(){
         fetch(futureCourseURL, futureCourseOptions)
         .then(res => res.json())
         .then(res => {
-            console.log("future Course");
             if(res.length > 0){
-                    console.log("CourseList[0]: " + res[0].courseName);
                     setCourseList(res);
                     setNewValue(prevValue => {
     
@@ -54,8 +52,6 @@ function ApplicationForm(){
                             course: res[0].courseName + " " + dateStr
                         }
                     })
-                    console.log("DataObtained: " + isDataObtained);
-                    console.log(courseList);
                 }
             setIsDataObtained(true);
         }).catch(err => {
@@ -64,8 +60,6 @@ function ApplicationForm(){
     }
 
     useEffect( () => {
-
-        console.log("render");
 
         if(!isDataObtained){
             const url = "/user";
@@ -106,8 +100,6 @@ function ApplicationForm(){
     })
 
     function enroll(course){
-
-        console.log(course);
 
         const url = "/enroll";
         const options = {
@@ -195,9 +187,7 @@ function ApplicationForm(){
 
     function checkQuota(){
 
-        const courseInfo = newValue.course.split(' ')
-
-        console.log("date: " +  courseInfo[1]);
+        const courseInfo = newValue.course.split(' ');
 
         const courseName = newValue.course.split(' ')[0];
         const courseDate = newValue.course.split(' ')[1];
@@ -225,11 +215,9 @@ function ApplicationForm(){
             }
         })
         .then(res => {
-            console.log(res);
             if(res.quota === 0){
                 waitinglist(courseName, courseDate);
             }else if(res !== "error"){
-                console.log("Enrolled");
                 enroll(res);
             }
         }).catch(err => {
@@ -275,7 +263,6 @@ function ApplicationForm(){
             }; 
         });
 
-        console.log(newValue);
     }
 
     return (
@@ -312,6 +299,7 @@ function ApplicationForm(){
         <div className="inputRow">
 
             <div className="inputItem">
+
                 <FormGroup>
                     <Form.Label className="inputLabel">職員編號:</Form.Label>
                     <Form.Control placeholder={fields[2]} size="lg" onChange={handleChange} value={newValue.staffid} name="staffid"></Form.Control>

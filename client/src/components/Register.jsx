@@ -30,8 +30,7 @@ export default function Register(){
                 [name]: value
             }; 
         });
-
-        console.log(userData);
+        
     }
 
     function handleRegister(event){
@@ -71,7 +70,6 @@ export default function Register(){
                 localStorage.setItem('isAuthorized', true);
                 localStorage.setItem('username', res.user.username);
                 setRegister(true);
-                console.log("Ready to redirect");
             }else{
                 alert("未能成功註冊，請再嘗試");
             }

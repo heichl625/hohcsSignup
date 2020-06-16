@@ -52,7 +52,6 @@ export default function RegisterRecordDetail(props){
             })
 
             setLoaded(true);
-            console.log("After isLoaded: " + loaded)
         }
     })
 

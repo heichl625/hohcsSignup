@@ -6,8 +6,6 @@ import EnrollDetail from './EnrollDetail';
 
 export default function CourseDetail(props){
 
-  console.log("CourseDetail")
-
     var date;
 
     if(props.selectedCourse){
@@ -34,7 +32,6 @@ export default function CourseDetail(props){
         fetch(url, options)
         .then(res => res.json())
         .then(res => {
-          console.log(res);
             if(res.message === "未有報名記錄"){
               alert(res.message)
             }else{
@@ -78,7 +75,6 @@ export default function CourseDetail(props){
     
     return(
         <div>
-            {console.log(getCourseDetail)}
             <Card className="detailCard">
               <Card.Header className="cardDetailWrapper">
                     <h1 className="courseTitle">{props.selectedCourse && props.selectedCourse.courseName}</h1>

@@ -33,7 +33,6 @@ export default function Future(){
         fetch(url, options)
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if(courses === initialCourse){
                 
                 setCourses(res);

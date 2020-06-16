@@ -19,7 +19,6 @@ export default function App(props) {
     
 
     useEffect(() => {
-        console.log("App");
         axios.get("/isAuthenticated",  
         { headers:
             { 
@@ -29,10 +28,8 @@ export default function App(props) {
             }
         })
         .then(res => {
-            console.log("Authorizing");
             localStorage.setItem("isAuthorized", true);
         }).catch(function (error) {
-            console.log(error);
             localStorage.removeItem("isAuthorized");
         });
     })

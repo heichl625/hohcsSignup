@@ -7,8 +7,6 @@ import qs from 'qs';
 
 export default function WaitingList(props){
 
-    console.log(props.course);
-
     const courseID = props.courseID;
     const [isBack, setIsBack] = useState(false);
     const [records, setRecords] = useState([]);
@@ -30,7 +28,6 @@ export default function WaitingList(props){
         fetch(url, options)
         .then(res => res.json())
         .then(res => {
-            console.log(res.records[0].staffid);
             if(records.length === 0){
                 setRecords(res.records);
             }

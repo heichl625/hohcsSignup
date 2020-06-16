@@ -52,7 +52,6 @@ export default function RegisterWaitinglistRecord(props){
             })
 
             setLoaded(true);
-            console.log("After isLoaded: " + loaded)
         }
     })
 

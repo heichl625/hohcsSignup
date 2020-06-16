@@ -7,7 +7,6 @@ import WaitingList from './WaitingList';
 
 export default function EnrollDetail(props){
 
-    console.log(props.courseDetail);
     const [enrollRecords, setEnrollRecords] = useState([]);
     const [waitinglist, setWaitingList] = useState(false);
     const [isBack, setIsBack] = useState(false);
@@ -29,7 +28,6 @@ export default function EnrollDetail(props){
     }
 
     if(waitinglist){
-        console.log(props.course._id)
         return <WaitingList courseID={props.course._id} courseDetail={props.courseDetail} course={props.course}/>
     }
 

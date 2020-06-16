@@ -8,8 +8,6 @@ import qs from 'qs';
 
 function Login() {
 
-    console.log("Login IN page, IS authenticated? " + auth.isAuthenticated())
-
     const [userData, setUserData] = useState({
 
         username: "",
@@ -40,7 +38,6 @@ function Login() {
             };
         });
 
-        console.log(userData);
     }
 
     function handleSubmit(event){
@@ -74,11 +71,9 @@ function Login() {
         .then(res => {
 
             if(res !== "error"){
-                console.log(res)
                 localStorage.setItem('userToken', res.token);
                 localStorage.setItem('isAuthorized', true);
                 localStorage.setItem('username', res.user.username);
-                console.log("Ready to redirect");
                 setRedirect({
                     to: "/",
                     isDirected: true

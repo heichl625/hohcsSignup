@@ -8,7 +8,7 @@ function Header(){
 
     const [isLoggedOut, setLoggedOut] = useState("false");
 
-    console.log("render");
+    console.log("rendering header");
 
 
     function handleLogout(){

@@ -26,7 +26,6 @@ export default function RegisterRecord(){
     useEffect(() => {
 
         if(!isLoaded){
-            console.log("render");
             const url = '/course-by-date';
             const options = {
                 method: 'POST',
@@ -42,7 +41,6 @@ export default function RegisterRecord(){
             fetch(url, options)
             .then(res => res.json())
             .then(res => {
-                console.log("length: " + res.length);
                 if(res.length === 0){
                     setNoCourse(true);
                     setCourses(initialCourse);
@@ -58,7 +56,6 @@ export default function RegisterRecord(){
     })
 
     function handleClick(selectedKey){
-        console.log(selectedKey);
         switch(selectedKey){
             case "0":
                 setPeriod("過往");
@@ -98,7 +95,6 @@ export default function RegisterRecord(){
         <div className="sidebar">
 
             <h4 className="sidebarTitle">{period}課程</h4>
-            {console.log(noCourse)}
             { noCourse && <p className="noCourse">暫沒有課程</p> }
             <Nav defaultActiveKey="" className="flex-column" onSelect={(selectedKey) => handleSidebarClick(selectedKey)}>
                 {!noCourse && courses.map(course => {
