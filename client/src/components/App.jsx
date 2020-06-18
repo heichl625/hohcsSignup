@@ -12,6 +12,7 @@ import RegisterRecord from "./RegisterRecord";
 import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import AuthorizedList from "./Adminastrative/AuthorizedList";
 
 
 export default function App(props) {
@@ -44,6 +45,7 @@ export default function App(props) {
             <AdminRoute component={CreateCourse} exact path="/createcourse" />
             <AdminRoute component={History} exact path="/history" />
             <AdminRoute component={Future} exact path="/future" />
+            <AdminRoute component={AuthorizedList} exact path="/authorized-list" />
             <Route component={Register} exact path="/register"/>
             <Route component={RegisterRecord} exact path="/register-record"/>
         </Switch>

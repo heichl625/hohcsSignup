@@ -308,6 +308,40 @@ footer{
     margin-left: 40%;
 }
 
+/* Authorized List */
+.authorizedCard{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 1000px;
+    margin-top: 30px;
+}
+
+.authorizedTitle{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.authorizedForm{
+    display: block;
+    width: 300px;
+    margin-left: auto;
+
+}
+
+.addBtn{
+    border-radius: 50%;
+}
+
+.authorizedTable{
+    margin-top: 20px;
+}
+
+.authorizedDeleteBtn{
+    margin-left: auto;
+    display: block !important;
+}
+
 @media (max-width: 1024px){  
 
     /* Application Form */

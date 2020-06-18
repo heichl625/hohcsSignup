@@ -190,7 +190,9 @@ function ApplicationForm(){
         const courseInfo = newValue.course.split(' ');
 
         const courseName = newValue.course.split(' ')[0];
+        console.log("name: " + courseName);
         const courseDate = newValue.course.split(' ')[1];
+        console.log("name: " + courseDate);
 
         const url = "/checkQuota";
         const options = {

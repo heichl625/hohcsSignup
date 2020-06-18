@@ -11,6 +11,7 @@ export default function Navigatior(){
             <Nav.Link href="/history">以往課程</Nav.Link>
             <Nav.Link href="/admin">今天課程</Nav.Link>
             <Nav.Link href="/future">未來課程</Nav.Link>
+            <Nav.Link href="/authorized-list">授權名單</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/">返回報名表格</Nav.Link>
