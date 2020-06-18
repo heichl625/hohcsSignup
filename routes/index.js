@@ -292,6 +292,8 @@ router.post('/waitinglist', (req, res) => {
     date.setUTCHours(0);
     date.setDate(date.getDate() + 1);
 
+    console.log("date: " + date);
+
     const email = queryData.enrollment.username + "@hohcs.org.hk";
 
     const newRecord = {
