@@ -217,6 +217,7 @@ function ApplicationForm(){
             }
         })
         .then(res => {
+            console.log(res);
             if(res.quota === 0){
                 waitinglist(courseName, courseDate);
             }else if(res !== "error"){
