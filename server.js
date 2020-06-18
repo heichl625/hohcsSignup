@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 app.use(session({
-    secret: process.env.JWT_SECRECT || "my_secret",
+    secret: process.env.JWT_SECRECT || "hohcsSecret",
     resave: false,
     saveUninitialized: false,
     cookie: {

@@ -3,6 +3,7 @@ const User = require('../models/user');
 const Course = require('../models/course');
 const Enrollment = require('../models/enrollment');
 const WaitingList = require('../models/waitinglist');
+const AuthorizedList = require('../models/authorizedList');
 const passport = require("passport");
 const jwt = require('jsonwebtoken');
 const router = express.Router();
@@ -603,6 +604,71 @@ router.post("/deleteCourse", (req, res) => {
                 console.log("No course is Found");
                 res.sendStatus(403);
             }
+        }
+    })
+
+})
+
+router.post("/add-authorized-list", (req, res) => {
+
+    const email = req.body.email;
+
+    AuthorizedList.findOne({email: email}, (err, foundEmail) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(403);
+        }else{
+            if(foundEmail){
+                res.sendStatus(403);
+            }else{
+
+                const newItem = new AuthorizedList({
+                    email: email
+                });
+
+                console.log(email);
+
+                newItem.save();
+
+                res.sendStatus(200);
+            }
+        }
+    })
+
+})
+
+router.get("/get-authorized-list", (req, res) => {
+
+    AuthorizedList.find({}, (err, foundList) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(403);
+        }else{
+
+            if(foundList){
+                res.json(foundList);
+            }else{
+                res.send("No Result");
+            }
+
+        }
+    })
+
+})
+
+router.post("/delete-authorized-list", (req, res) => {
+
+
+    console.log(req.body);
+    const email = req.body.email;
+    console.log("email: " + email);
+
+    AuthorizedList.deleteOne({email: email}, (err) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(403);
+        }else{
+            res.sendStatus(200);
         }
     })
 
