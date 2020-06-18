@@ -284,6 +284,8 @@ router.post('/checkQuota', (req, res) => {
 
 router.post('/waitinglist', (req, res) => {
 
+    console.log("Passed: " + req.body);
+
     const queryData = req.body;
 
     const date = new Date(req.body.courseDate);
@@ -300,6 +302,8 @@ router.post('/waitinglist', (req, res) => {
         dept: req.body.enrollment.dept,
         registeredBy: req.body.registeredBy+"@hohcs.org.hk"
     }
+
+    console.log("newRecord: " + newRecord);
 
     Course.findOne({$and: [{
         courseName: queryData.courseName
