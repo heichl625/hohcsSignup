@@ -284,7 +284,7 @@ router.post('/checkQuota', (req, res) => {
 
 router.post('/waitinglist', (req, res) => {
 
-    console.log("Passed: " + req.body);
+    console.log("Passed: " + req.body.registeredBy);
 
     const queryData = req.body;
 
