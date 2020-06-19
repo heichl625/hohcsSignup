@@ -246,17 +246,11 @@ router.get("/adminTodayCourse", (req, res) => {
 
 router.post('/checkQuota', (req, res) => {
 
-    const queryData = req.body;
-
-    const date = new Date(req.body.courseDate);
-    date.setUTCHours(0);
-    date.setDate(date.getDate() + 1);
+    console.log("courseID: " + req.body.courseID);
 
     Course.findOneAndUpdate({
         $and: [{
-            courseName: queryData.courseName
-        }, {
-            date: date
+            _id: req.body.courseID
         }, {
             quota: {
                 $gt: 0
@@ -284,17 +278,9 @@ router.post('/checkQuota', (req, res) => {
 
 router.post('/waitinglist', (req, res) => {
 
-    console.log("Passed: " + req.body.registeredBy);
-
     const queryData = req.body;
 
-    const date = new Date(req.body.courseDate);
-    date.setUTCHours(0);
-    date.setDate(date.getDate() + 1);
-
-    console.log("date: " + date);
-
-    const email = queryData.enrollment.username + "@hohcs.org.hk";
+    const email = queryData.enrollment.email + "@hohcs.org.hk";
 
     const newRecord = {
         username: req.body.enrollment.username,
@@ -308,9 +294,7 @@ router.post('/waitinglist', (req, res) => {
     console.log("newRecord: " + newRecord);
 
     Course.findOne({$and: [{
-        courseName: queryData.courseName
-    }, {
-        date: date
+        _id: queryData.enrollment.course
     }, {
         quota: {
             $eq: 0
@@ -525,19 +509,6 @@ router.post("/course-by-date", (req, res) => {
 
     }
 });
-
-// db.test.aggregate([
-//     // Get just the docs that contain a shapes element where color is 'red'
-//     {$match: {'shapes.color': 'red'}},
-//     {$project: {
-//         shapes: {$filter: {
-//             input: '$shapes',
-//             as: 'shape',
-//             cond: {$eq: ['$$shape.color', 'red']}
-//         }},
-//         _id: 0
-//     }}
-// ])
 
 router.post("/register-record", (req, res) => {
 

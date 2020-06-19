@@ -49,10 +49,11 @@ function ApplicationForm(){
     
                         return{
                             ...prevValue,
-                            course: res[0].courseName + " " + dateStr
+                            course: res[0]
                         }
                     })
                 }
+            console.log(newValue.course);
             setIsDataObtained(true);
         }).catch(err => {
             console.log("futureCourse: " + err);
@@ -142,7 +143,7 @@ function ApplicationForm(){
 
 
 
-    function waitinglist(courseName, courseDate){
+    function waitinglist(){
 
         const url = "/waitinglist";
         const options = {
@@ -152,8 +153,6 @@ function ApplicationForm(){
               "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
-                "courseName": courseName,
-                "courseDate": courseDate,
                 "enrollment": newValue,
                 "registeredBy": localStorage.getItem("username")
             })
@@ -164,18 +163,6 @@ function ApplicationForm(){
             if(res.status === 200){
                 alert("課程名額暫滿，你將會加進後備名單。如最後能夠成功報讀，屆時將會以公司電郵通知");
                 clearInput();
-                // setNewValue(prevValue => {
-                    
-                //     return {
-                //         ...prevValue,
-                //         username: "",
-                //         email: "",
-                //         staffid: "",
-                //         post: "",
-                //         dept: ""
-                //     }
-
-                // });
             }else{
                 alert("發生錯誤，請稍後再嘗試");
             }
@@ -187,13 +174,7 @@ function ApplicationForm(){
 
     function checkQuota(){
 
-        const courseInfo = newValue.course.split(' ');
-
-        const courseName = newValue.course.split(' ')[0];
-        console.log("name: " + courseName);
-        const courseDate = newValue.course.split(' ')[1];
-        console.log("name: " + courseDate);
-
+        console.log("CourseID: " + newValue.course);
         const url = "/checkQuota";
         const options = {
             method: "POST",
@@ -202,8 +183,7 @@ function ApplicationForm(){
               "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
-                "courseName": courseName,
-                "courseDate": courseDate
+                "courseID": newValue.course
             })
         };
 
@@ -219,7 +199,7 @@ function ApplicationForm(){
         .then(res => {
             console.log(res);
             if(res.quota === 0){
-                waitinglist(courseName, courseDate);
+                waitinglist();
             }else if(res !== "error"){
                 enroll(res);
             }
@@ -258,6 +238,8 @@ function ApplicationForm(){
     function handleChange(event){
 
         const {name, value} = event.target;
+
+        console.log(value);
 
         setNewValue(prevValue => {
             return{
@@ -335,11 +317,11 @@ function ApplicationForm(){
             <div className="inputItem">
                 <FormGroup>
                     <Form.Label className="inputLabel">報讀課程:</Form.Label>
-                    <Form.Control size="lg" onChange={handleChange} value={newValue.course} name="course" as="select">
+                    <Form.Control size="lg" onChange={handleChange} name="course" as="select">
                         <option>請選擇課程</option>
                         {courseList.length > 0 && courseList.map(course => {
                             var date = new Date(course.date);
-                            return <option>{course.courseName} {date.toLocaleDateString()}</option>
+                            return <option value={course._id}>{course.courseName} {date.toLocaleDateString()}</option>
                         })}
                     </Form.Control>
                 </FormGroup>
