@@ -43,32 +43,46 @@ router.post("/register", (req, res) => {
         role: "user"
     }
 
-    User.register(newUser, data.password, (err, user) => {
-        if (err) {
+    AuthorizedList.findOne({email: newUser.username+"@hohcs.org.hk"}, (err, foundEmail) => {
+        if(err){
             console.log(err);
             res.sendStatus(403);
-        } else {
-
-            passport.authenticate('local', {
-                session: false
-            })(req, res, () => {
-                console.log("inside authenticate");
-                const user = {
-                    username: req.user.username,
-                    password: req.user.password
-                };
-
-                console.log(req.user);
-                const token = jwt.sign(user, 'hohcs');
-                console.log(token);
-                return res.json({
-                    user,
-                    token
-                });
-            })
-        };
-
+        }else{
+            if(foundEmail){
+                User.register(newUser, data.password, (err, user) => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(403);
+                    } else {
+            
+                        passport.authenticate('local', {
+                            session: false
+                        })(req, res, () => {
+                            console.log("inside authenticate");
+                            const user = {
+                                username: req.user.username,
+                                password: req.user.password
+                            };
+            
+                            console.log(req.user);
+                            const token = jwt.sign(user, 'hohcs');
+                            console.log(token);
+                            return res.json({
+                                user,
+                                token
+                            });
+                        })
+                    };
+            
+                })
+            }else{
+                console.log("Not Authorized");
+                res.json({msg: "Not Authorized"});
+            }
+        }
     })
+
+    
 });
 
 const checkToken = (req, res, next) => {

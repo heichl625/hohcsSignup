@@ -66,12 +66,24 @@ export default function Register(){
         })
         .then(res => {
             if(res !== "error"){
-                localStorage.setItem('userToken', res.token);
-                localStorage.setItem('isAuthorized', true);
-                localStorage.setItem('username', res.user.username);
-                setRegister(true);
+                if(res.msg === "Not Authorized"){
+                    alert("你的電郵並未獲得授權，因此不能註冊");
+                }else{
+                    localStorage.setItem('userToken', res.token);
+                    localStorage.setItem('isAuthorized', true);
+                    localStorage.setItem('username', res.user.username);
+                    setRegister(true);
+                }
             }else{
                 alert("未能成功註冊，請再嘗試");
+                setUserData({
+                    username: "",
+                    password: "",
+                    staffid: "",
+                    name: "",
+                    post: "",
+                    dept: ""
+                })
             }
             
         })
