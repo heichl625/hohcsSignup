@@ -135,26 +135,28 @@ footer{
     vertical-align: middle;
 }
 
+.inputRow .courseSelection{
+    width: 400px !important;
+
+}
+
 .btnWrapper{
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .submitBtn {
-    font-size: 20px;
-    margin-top: 20px;
-    flex: 0 1 auto;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
 }
 
 .clearBtn{
-    flex: 0 1 auto;
-    font-size: 20px;
-    margin-top: 20px;
-    margin-left: auto; 
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -375,16 +377,14 @@ footer{
     }
     
     .submitBtn {
-        display: inline !important;
+        display: block !important;
         margin-left: auto;
-        margin-right: 70%;
-        position: relative;
+        margin-right: auto;
     }
     
     .clearBtn{
-        display: inline !important;
-        position: relative;
-        margin-left: 32%;
+        display: block !important;
+        margin-left: auto;
         margin-right: auto; 
     }
 

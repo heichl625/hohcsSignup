@@ -317,11 +317,11 @@ function ApplicationForm(){
             <div className="inputItem">
                 <FormGroup>
                     <Form.Label className="inputLabel">報讀課程:</Form.Label>
-                    <Form.Control size="lg" onChange={handleChange} name="course" as="select">
+                    <Form.Control size="lg" onChange={handleChange} name="course" as="select" className="courseSelection">
                         <option>請選擇課程</option>
                         {courseList.length > 0 && courseList.map(course => {
                             var date = new Date(course.date);
-                            return <option value={course._id}>{course.courseName} {date.toLocaleDateString()}</option>
+                        return <option value={course._id}>{course.courseName} {date.getDate()}/{date.getMonth()}/{date.getFullYear()}</option>
                         })}
                     </Form.Control>
                 </FormGroup>
