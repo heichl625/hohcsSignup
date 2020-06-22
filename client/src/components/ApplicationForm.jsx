@@ -255,6 +255,8 @@ function ApplicationForm(){
     <Header />
     <img src="https://www.hohcs.org.hk/App/Modules/Admin/Tpl/Static/upload/image/20170418/20170418125117_21846.png" className="formIcon"/>
 
+    <p className="reminderText">如替其他同事報名，請填上同事資料</p>
+
     
     <Form className="inputForm" onSubmit={handleSubmit}>
     

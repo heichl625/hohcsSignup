@@ -3,6 +3,7 @@ import qs from 'qs';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import EnrollDetail from './EnrollDetail';
+import ModifyCourse from './ModifyCourse';
 
 export default function CourseDetail(props){
 
@@ -14,6 +15,8 @@ export default function CourseDetail(props){
     const [getCourseDetail, setGetCourseDetail] = useState(false);
 
     const [courseDetail, setCourseDetail] = useState({});
+
+    const [modify, setModify] = useState(false);
 
     function handleClick(){
 
@@ -68,8 +71,16 @@ export default function CourseDetail(props){
 
     }
 
+    function handleModify(){
+      setModify(true);
+    }
+
     if(getCourseDetail){
       return <EnrollDetail courseDetail={courseDetail} course={props.selectedCourse}/>
+    }
+
+    if(modify){
+      return <ModifyCourse course={props.selectedCourse}/>
     }
     
     
@@ -77,6 +88,7 @@ export default function CourseDetail(props){
         <div>
             <Card className="detailCard">
               <Card.Header className="cardDetailWrapper">
+                    <Button className="backBtn" onClick={handleModify}>修改課程資料</Button>
                     <h1 className="courseTitle">{props.selectedCourse && props.selectedCourse.courseName}</h1>
                     <Button variant="danger" className="deleteBtn" onClick={handleDelete}>刪除課程</Button>
               </Card.Header>

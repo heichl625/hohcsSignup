@@ -112,6 +112,11 @@ footer{
     width: 400px;
 }
 
+.reminderText{
+    margin-top: 20px;
+    text-align: center;
+}
+
 .inputForm{
     width:900px;
     display: block;
@@ -308,6 +313,17 @@ footer{
 .registerWaitinglistBtn{
     margin-top: 7%;
     margin-left: 40%;
+}
+
+.modifyCourseTitle{
+    text-align: center;
+    margin-top: 5%;
+    margin-left: 300px;
+}
+
+.modifyForm{
+    display: block;
+    margin-left: 300px;
 }
 
 /* Authorized List */

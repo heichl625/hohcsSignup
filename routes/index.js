@@ -167,6 +167,26 @@ router.post("/createcourse", (req, res) => {
 
 })
 
+router.post("/modifyCourse", (req, res) => {
+
+    const course = req.body.course;
+
+    Course.findOneAndUpdate({_id: course._id}, {_id: course._id, courseName: course.courseName, date: course.date, time: course.time, description: course.description, quota: course.quota, tutor: course.tutor, venue: course.venue, _v: course._v}, (err, foundCourse) => {
+        if(err){
+            console.log(err);
+            res.sendStatus(403);
+        }else{
+            if(foundCourse){
+                res.json(foundCourse);
+            }else{
+                console.log(err);
+                res.json({msg: "No Course Found"});
+            }
+        }
+    })
+
+})
+
 router.get("/course", (req, res) => {
 
     Course.find({}, (err, foundCourse) => {
