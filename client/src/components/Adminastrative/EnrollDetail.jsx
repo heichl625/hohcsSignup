@@ -36,6 +36,7 @@ export default function EnrollDetail(props){
         <Card className="detailCard">
             <Card.Header className="enrollHeaderWrapper">
                 <Button className="backBtn" onClick={backBtnClicked}>返回查看課程資料</Button>
+                {console.log(props.courseDetail)}
                 <h1 className="enrollDetailTitle">{props.courseDetail.courseName}</h1>
                 <Button className="waitinglistBtn" onClick={waitinglistBtnClicked}>查看後補名單</Button>
             </Card.Header>

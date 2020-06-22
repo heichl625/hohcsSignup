@@ -89,7 +89,7 @@ function ApplicationForm(){
                     staffid: res.staffid,
                     post: res.post,
                     dept: res.dept,
-                    course: "",
+                    course: ""
                 })
             }).catch(err => {
                 console.log("user: " + err);
@@ -112,6 +112,7 @@ function ApplicationForm(){
             body: qs.stringify({
                 "courseID": course._id, 
                 "enrollment": newValue,
+                "courseName": course.courseName,
                 "registeredBy": localStorage.getItem("username")
             })
         };

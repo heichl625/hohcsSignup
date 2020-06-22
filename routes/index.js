@@ -328,7 +328,7 @@ router.post('/waitinglist', (req, res) => {
     console.log("newRecord: " + newRecord);
 
     Course.findOne({$and: [{
-        _id: queryData.enrollment.course
+        _id: queryData.enrollment.course.courseID
     }, {
         quota: {
             $eq: 0
@@ -407,7 +407,7 @@ router.post('/enroll', (req, res) => {
 
     console.log(req.body);
 
-    const courseName = req.body.enrollment.course.split(' ')[0];
+    const courseName = req.body.courseName;
     const email = req.body.enrollment.email + "@hohcs.org.hk";
 
     const newRecord = {
