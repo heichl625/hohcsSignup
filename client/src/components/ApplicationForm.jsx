@@ -122,18 +122,6 @@ function ApplicationForm(){
             if(res.status === 200){
                 alert("成功報讀課程");
                 clearInput();
-                // setNewValue(prevValue => {
-                    
-                //     return {
-                //         ...prevValue,
-                //         username: "",
-                //         email: "",
-                //         staffid: "",
-                //         post: "",
-                //         dept: ""
-                //     }
-
-                // });
             }else{
                 alert("未能成功報讀課程, 請稍後再嘗試");
             }
@@ -141,8 +129,6 @@ function ApplicationForm(){
             console.log("enroll: " + err);
         });
     }
-
-
 
     function waitinglist(){
 
@@ -175,38 +161,43 @@ function ApplicationForm(){
 
     function checkQuota(){
 
-        console.log("CourseID: " + newValue.course);
-        const url = "/checkQuota";
-        const options = {
-            method: "POST",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: qs.stringify({
-                "courseID": newValue.course
-            })
-        };
+        if(newValue.email !== ""){
 
-        fetch(url, options)
-        .then(res => {
-            if(res.status === 200){
-                return res.json()
-            }else{
-                alert("發生錯誤，請稍後再嘗試");
-                return "error";
-            }
-        })
-        .then(res => {
-            console.log(res);
-            if(res.quota === 0){
-                waitinglist();
-            }else if(res !== "error"){
-                enroll(res);
-            }
-        }).catch(err => {
-            console.log("Login: " + err);
-        });
+            console.log("CourseID: " + newValue.course);
+            const url = "/checkQuota";
+            const options = {
+                method: "POST",
+                headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: qs.stringify({
+                    "courseID": newValue.course
+                })
+            };
+
+            fetch(url, options)
+            .then(res => {
+                if(res.status === 200){
+                    return res.json()
+                }else{
+                    alert("發生錯誤，請稍後再嘗試");
+                    return "error";
+                }
+            })
+            .then(res => {
+                console.log(res);
+                if(res.quota === 0){
+                    waitinglist();
+                }else if(res !== "error"){
+                    enroll(res);
+                }
+            }).catch(err => {
+                console.log("Login: " + err);
+            });
+        }else{
+            alert("請輸入有效資料");
+        }
     }
 
 
