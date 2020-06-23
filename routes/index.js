@@ -200,7 +200,7 @@ router.get("/course", (req, res) => {
 router.get('/futureCourse', (req, res) => {
 
     const cutoff = new Date()
-    cutoff.setDate(cutoff.getDate() + 7);
+    cutoff.setDate(cutoff.getDate());
 
     Course.find({
         date: {
@@ -220,62 +220,6 @@ router.get('/futureCourse', (req, res) => {
             res.sendStatus(403);
         }
     }).sort('date');
-})
-
-router.get('/adminfutureCourse', (req, res) => {
-
-    const cutoff = new Date();
-    cutoff.setHours(23,59,59,999);
-
-    Course.find({
-        date: {
-            $gt: cutoff
-        }
-    }, (err, foundCourse) => {
-        if (!err) {
-            res.json(foundCourse);
-        }
-    }).sort('date')
-});
-
-router.get("/adminPastCourse", (req, res) => {
-
-    const cutoff = new Date()
-    cutoff.setHours(0,0,0,0);
-
-    Course.find({
-        date: {
-            $lt: cutoff
-        }
-    }, (err, foundCourse) => {
-        if (!err) {
-            res.json(foundCourse);
-        }
-    }).sort('date')
-
-})
-
-router.get("/adminTodayCourse", (req, res) => {
-
-    var start = new Date();
-    start.setHours(0,0,0,0);
-
-    var end = new Date();
-    end.setHours(23,59,59,999);
-
-    Course.find({
-        date: {
-            $gte: start,
-            $lt: end,
-        }
-    }, (err, foundCourse) => {
-        if (!err) {
-            res.json(foundCourse);
-        }else{
-            console.log(err);
-        }
-    }).sort('time')
-
 })
 
 router.post('/checkQuota', (req, res) => {
@@ -504,7 +448,7 @@ router.post("/course-by-date", (req, res) => {
                         res.send("No Course Found");
                     }
                 }
-            })
+            }).sort('time');
             break;
         case "過往":
             end = today.setHours(0,0,0,0);
@@ -520,7 +464,7 @@ router.post("/course-by-date", (req, res) => {
                         res.send("No Course Found");
                     }
                 }
-            })
+            }).sort('date');
             break;
         case "未來":
             start = today.setHours(23,59,59,999);
@@ -536,7 +480,7 @@ router.post("/course-by-date", (req, res) => {
                         res.send("No Course Found");
                     }
                 }
-            })
+            }).sort('date');
             break; 
         default:
             res.send("Not handle Yet");
