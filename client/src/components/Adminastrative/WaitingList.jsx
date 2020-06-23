@@ -3,6 +3,7 @@ import EnrollDetail from './EnrollDetail';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import { Parser } from 'json2csv';
 import qs from 'qs';
 
 export default function WaitingList(props){
@@ -36,6 +37,34 @@ export default function WaitingList(props){
 
     function backBtnClicked(){
         setIsBack(true);
+    }
+
+    function handleExport(){
+
+        console.log(records);
+
+        const fields = ["username", "email", "staffid", "dept", "post", "registeredBy"];
+        const options = { fields }
+
+        const parser = new Parser(options);
+        const csv = parser.parse(records);
+
+        download(csv);
+
+    }
+
+    function download(data){
+
+        const blob = new Blob([data], {type: "text/csv"});
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('hidden', '');
+        a.setAttribute('href', url);
+        a.setAttribute('download', props.courseDetail.courseName + "_waitinglist.csv");
+        document.body.append(a)
+        a.click();
+        document.body.removeChild(a);
+
     }
 
     if(isBack){
@@ -78,7 +107,10 @@ export default function WaitingList(props){
                       
                     </tbody>
                 </Table>
-                <p>總後補人數： { records && records.length }</p>
+                <div className="cardBottom">
+                    <p className="enrollNum">總候補人數： { records && records.length}</p>
+                    <Button className="exportBtn" variant="primary" onClick={handleExport}>匯出候補名單(.csv)</Button>
+                </div>
           </Card.Body>
         </Card>
         </React.Fragment>

@@ -279,6 +279,24 @@ footer{
     margin-left: auto;
 }
 
+.cardBottom{
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.enrollNum{
+    position: absolute;
+    flex: 0 1 auto;
+    margin-top: 10px;
+    left: 0;
+}
+
+.exportBtn{
+    flex: 0 1 auto;
+    margin-left: auto;
+}
+
 /* Create Course */
 
 .courseDescriptionText{

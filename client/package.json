@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
+    "iconv-lite": "^0.6.0",
+    "json2csv": "^5.0.1",
     "prettier": "^2.0.5",
     "qs": "^6.9.4",
     "react": "^16.13.1",
