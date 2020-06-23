@@ -12,36 +12,20 @@ export default function CourseDetail(props){
     if(props.selectedCourse){
       date = new Date(props.selectedCourse.date);
     }
+
+    const [courseID, setCourseID] = useState();
     const [getCourseDetail, setGetCourseDetail] = useState(false);
-
     const [courseDetail, setCourseDetail] = useState({});
-
     const [modify, setModify] = useState(false);
+    const [isLoad, setIsLoad] = useState(false);
 
     function handleClick(){
 
-      const courseID = props.selectedCourse._id;
-
-      const url = '/enrollDetail';
-        const options = {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({courseID: courseID})
-        };
-
-        fetch(url, options)
-        .then(res => res.json())
-        .then(res => {
-            if(res.message === "未有報名記錄"){
-              alert(res.message)
-            }else{
-              setGetCourseDetail(true);
-              setCourseDetail(res);
-            }
-        })
+      if(getCourseDetail === "未有報名記錄"){
+        alert("未有報名記錄");
+      }else{
+        setGetCourseDetail(true);
+      }
 
     }
 
@@ -76,7 +60,8 @@ export default function CourseDetail(props){
     }
 
     if(getCourseDetail){
-      return <EnrollDetail courseDetail={courseDetail} course={props.selectedCourse}/>
+      console.log("Detail: " + props.selectedCourse._id);
+      return <EnrollDetail course={props.selectedCourse}/>
     }
 
     if(modify){

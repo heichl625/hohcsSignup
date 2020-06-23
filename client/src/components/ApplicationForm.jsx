@@ -44,8 +44,8 @@ function ApplicationForm(){
                     setCourseList(res);
                     setNewValue(prevValue => {
     
-                        const date = new Date(res[0].date);
-                        const dateStr = date.toLocaleDateString();
+                        // const date = new Date(res[0].date);
+                        // const dateStr = date.toLocaleDateString();
     
                         return{
                             ...prevValue,
@@ -315,7 +315,7 @@ function ApplicationForm(){
                         <option>請選擇課程</option>
                         {courseList.length > 0 && courseList.map(course => {
                             var date = new Date(course.date);
-                        return <option value={course._id}>{course.courseName} {date.getDate()}/{date.getMonth()}/{date.getFullYear()}</option>
+                        return <option value={course._id}>{course.courseName} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</option>
                         })}
                     </Form.Control>
                 </FormGroup>

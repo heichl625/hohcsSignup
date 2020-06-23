@@ -8,9 +8,10 @@ import qs from 'qs';
 
 export default function WaitingList(props){
 
-    const courseID = props.courseID;
+    const courseID = props.course._id;
     const [isBack, setIsBack] = useState(false);
     const [records, setRecords] = useState([]);
+    const [noResult, setNoResult] = useState();
 
     useEffect(() => {
 
@@ -27,13 +28,27 @@ export default function WaitingList(props){
         };
 
         fetch(url, options)
-        .then(res => res.json())
         .then(res => {
-            if(records.length === 0){
-                setRecords(res.records);
+
+            if(res.status === 200){
+                return res.json();
+            }else{
+                return "no result";
             }
+        
         })
-    })
+        .then(res => {
+            console.log(res);
+            if(res !== "no result"){
+                setNoResult(false);
+                setRecords(res.records);
+            }else{
+                setNoResult(true);
+                setRecords();
+            }
+            
+        })
+    }, [props])
 
     function backBtnClicked(){
         setIsBack(true);
@@ -60,7 +75,7 @@ export default function WaitingList(props){
         const a = document.createElement('a');
         a.setAttribute('hidden', '');
         a.setAttribute('href', url);
-        a.setAttribute('download', props.courseDetail.courseName + "_waitinglist.csv");
+        a.setAttribute('download', props.course.courseName + "_waitinglist.csv");
         document.body.append(a)
         a.click();
         document.body.removeChild(a);
@@ -68,7 +83,7 @@ export default function WaitingList(props){
     }
 
     if(isBack){
-        return <EnrollDetail courseDetail={props.courseDetail} course={props.course}/>
+        return <EnrollDetail course={props.course}/>
     }
 
     return (
@@ -78,9 +93,10 @@ export default function WaitingList(props){
         <Card className="detailCard">
             <Card.Header className="enrollHeaderWrapper">
                 <Button className="backBtn" onClick={backBtnClicked}>返回查看報名名單</Button>
-                <h1 className="enrollDetailTitle">{props.courseDetail.courseName} (後補名單)</h1>
+                <h1 className="enrollDetailTitle">{props.course.courseName} (後補名單)</h1>
             </Card.Header>
             <Card.Body>
+                {noResult && <p>此課程未有候補紀錄</p>}
                 <Table striped bordered hover>
                     <thead>
                       <tr>

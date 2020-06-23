@@ -5,16 +5,50 @@ import Button from 'react-bootstrap/Button';
 import CourseDetail from './CourseDetail';
 import WaitingList from './WaitingList';
 import { Parser } from 'json2csv';
+import qs from 'qs';
 
 export default function EnrollDetail(props){
 
-    const [enrollRecords, setEnrollRecords] = useState([]);
+    const [enrollRecords, setEnrollRecords] = useState();
     const [waitinglist, setWaitingList] = useState(false);
     const [isBack, setIsBack] = useState(false);
+    const [isLoad, setIsLoad] = useState(false);
+    const [courseID, setCourseID] = useState("");
+    const [noRecord, setNoRecord] = useState();
 
     useEffect(() => {
-        setEnrollRecords(props.courseDetail.records);
-    })
+
+    //   if(!isLoad || courseID !== props.course._id){
+
+        const url = '/enrollDetail';
+          const options = {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: qs.stringify({courseID: props.course._id})
+          };
+
+          fetch(url, options)
+          .then(res => res.json())
+          .then(res => {
+              console.log(res);
+              if(res.message !== "未有報名記錄"){
+                setEnrollRecords(res);
+                setNoRecord(false);
+              }else{
+                setEnrollRecords();
+                setNoRecord(true);
+              }
+              setIsLoad(true);
+              
+          })
+    //   }
+
+    //   console.log(enrollRecords);
+
+    }, [props])
 
     function backBtnClicked(){
         setIsBack(true);
@@ -30,20 +64,20 @@ export default function EnrollDetail(props){
         const options = { fields }
 
         const parser = new Parser(options, {withBOM: true});
-        const csv = parser.parse(enrollRecords);
-        
+        const csv = parser.parse(enrollRecords.records);
+
         download(csv);
 
     }
 
     function download(data){
 
-        const blob = new Blob([data], {type: "text/csv;charset=utf-8,\uFEFF"});
+        const blob = new Blob([data], {type: "text/csv"});
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.setAttribute('hidden', '');
         a.setAttribute('href', url);
-        a.setAttribute('download', props.courseDetail.courseName + ".csv");
+        a.setAttribute('download', props.course.courseName + ".csv");
         document.body.append(a)
         a.click();
         document.body.removeChild(a);
@@ -55,7 +89,7 @@ export default function EnrollDetail(props){
     }
 
     if(waitinglist){
-        return <WaitingList courseID={props.course._id} courseDetail={props.courseDetail} course={props.course}/>
+        return <WaitingList course={props.course}/>
     }
 
     return (
@@ -63,11 +97,12 @@ export default function EnrollDetail(props){
         <Card className="detailCard">
             <Card.Header className="enrollHeaderWrapper">
                 <Button className="backBtn" onClick={backBtnClicked}>返回查看課程資料</Button>
-                {console.log(props.courseDetail)}
-                <h1 className="enrollDetailTitle">{props.courseDetail.courseName}</h1>
+                {/* {console.log(props.courseDetail)} */}
+                <h1 className="enrollDetailTitle">{props.course.courseName}</h1>
                 <Button className="waitinglistBtn" onClick={waitinglistBtnClicked}>查看後補名單</Button>
             </Card.Header>
             <Card.Body>
+                { noRecord && <p>此課程未有報名記錄</p> }
                 <Table striped bordered hover>
                     <thead>
                       <tr>
@@ -80,7 +115,7 @@ export default function EnrollDetail(props){
                     </thead>
                     <tbody>
 
-                         {enrollRecords && enrollRecords.map(record => {
+                         {enrollRecords && enrollRecords.records.map(record => {
                             return (
                                 <tr>
                                     <td>{record.staffid}</td>
@@ -95,7 +130,7 @@ export default function EnrollDetail(props){
                     </tbody>
                 </Table>
                 <div className="cardBottom">
-                    <p className="enrollNum">總報名人數： { enrollRecords && enrollRecords.length}</p>
+                    <p className="enrollNum">總報名人數： { enrollRecords && enrollRecords.records.length}</p>
                     <Button className="exportBtn" variant="primary" onClick={handleExport}>匯出名單(.csv)</Button>
                 </div>
           </Card.Body>

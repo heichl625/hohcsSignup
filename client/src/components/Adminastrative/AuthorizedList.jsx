@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Navigator from './Navigator';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -118,8 +117,6 @@ export default function AuthorizedList() {
     return (
 
         <React.Fragment>
-
-            <Navigator />
             <Card className="authorizedCard">
 
                 <Card.Header className="cardDetailWrapper"><h1 className="authorizedTitle">授權名單</h1></Card.Header>
@@ -140,6 +137,7 @@ export default function AuthorizedList() {
                             <tr>
                                 <th>#</th>
                                 <th>己授權名單</th>
+                                <th></th>
                             </tr>
                         </thead>
                         {list && list.map((item, index) => {
