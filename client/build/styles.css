@@ -109,7 +109,7 @@ footer{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 350px;
+    width: 300px;
 }
 
 .reminderText{
@@ -370,7 +370,6 @@ footer{
     display: block;
     width: 300px;
     margin-left: auto;
-
 }
 
 .addBtn{
@@ -385,6 +384,14 @@ footer{
     margin-left: auto;
     display: block !important;
 }
+
+/* Register Record */
+
+.recordDelBtn{
+    display: block !important;
+    margin-left: auto;
+}
+
 
 @media (max-width: 1024px){  
 

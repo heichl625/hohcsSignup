@@ -48,7 +48,7 @@ export default function EnrollDetail(props){
 
     //   console.log(enrollRecords);
 
-    }, [props])
+    }, [props, isLoad]);
 
     function backBtnClicked(){
         setIsBack(true);
@@ -84,6 +84,36 @@ export default function EnrollDetail(props){
 
     }
 
+    function handleDelete(enrollment){
+        
+        console.log(enrollment);
+
+        const url = "/deleteEnrollment";
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: qs.stringify({
+                courseID: props.course._id,
+                enrollment: enrollment
+            })
+        }
+
+        fetch(url, options)
+        .then(res => {
+            console.log("in promise");
+            if(res.status === 200){
+                alert("此紀錄已刪除");
+                setIsLoad(false);
+            }else{
+                alert("未能刪除此紀錄，請稍後再嘗試");
+            }
+        })
+
+    }
+
     if(isBack){
         return <CourseDetail selectedCourse={props.course}/>
     }
@@ -111,6 +141,7 @@ export default function EnrollDetail(props){
                         <th>電郵</th>
                         <th>單位</th>
                         <th>職位</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -123,6 +154,7 @@ export default function EnrollDetail(props){
                                     <td>{record.email}</td>
                                     <td>{record.dept}</td>
                                     <td>{record.post}</td>
+                                    <td><Button variant="danger" onClick={() => {handleDelete(record)}} className="recordDelBtn">刪除紀錄</Button></td>
                                 </tr>
                             );
                         })}

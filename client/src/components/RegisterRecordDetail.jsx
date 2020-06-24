@@ -55,6 +55,36 @@ export default function RegisterRecordDetail(props){
         }
     })
 
+    function handleDelete(enrollment){
+
+        console.log(enrollment);
+
+        const url = "/deleteEnrollment";
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: qs.stringify({
+                courseID: courseID,
+                enrollment: enrollment
+            })
+        }
+
+        fetch(url, options)
+        .then(res => {
+            console.log(res);
+            if(res.status === 200){
+                alert("此紀錄已刪除");
+                setLoaded(false);
+            }else{
+                alert("未能刪除此紀錄，請稍後再嘗試");
+            }
+        })
+
+    }
+
     function handleClick(){
         setWaitingList(true);
     }
@@ -82,6 +112,7 @@ export default function RegisterRecordDetail(props){
                         <th>電郵</th>
                         <th>單位</th>
                         <th>職位</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -92,6 +123,7 @@ export default function RegisterRecordDetail(props){
                                 <td>{detail.email}</td>
                                 <td>{detail.dept}</td>
                                 <td>{detail.post}</td>
+                                <td><Button variant="danger" onClick={() => {handleDelete(detail)}} className="recordDelBtn">刪除記錄</Button></td>
                             </tr>
                         })}
                     </tbody>

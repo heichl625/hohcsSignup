@@ -136,7 +136,6 @@ function ApplicationForm(){
         const options = {
             method: "POST",
             headers: {
-              "Accept": "application/json",
               "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
@@ -218,8 +217,7 @@ function ApplicationForm(){
                 email: "",
                 staffid: "",
                 post: "",
-                dept: "",
-                course: ""
+                dept: ""
             }
 
         });
@@ -248,6 +246,7 @@ function ApplicationForm(){
     <img src="https://www.hohcs.org.hk/App/Modules/Admin/Tpl/Static/upload/image/20170418/20170418125117_21846.png" className="formIcon"/>
 
     <p className="reminderText">如替其他同事報名，請填上同事資料</p>
+    <p className="reminderText">於提交名單前，請先知會上司</p>
 
     
     <Form className="inputForm" onSubmit={handleSubmit}>

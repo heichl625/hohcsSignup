@@ -272,7 +272,7 @@ router.post('/waitinglist', (req, res) => {
     console.log("newRecord: " + newRecord);
 
     Course.findOne({$and: [{
-        _id: queryData.enrollment.course.courseID
+        _id: queryData.enrollment.course
     }, {
         quota: {
             $eq: 0
@@ -500,7 +500,7 @@ router.post("/register-record", (req, res) => {
           console.log(err);
           res.sendStatus(403);
       }else{
-          if(foundEnrollment){
+          if(foundEnrollment.records.length > 0){
               foundEnrollment.records.forEach(enroll => {
                   if(enroll.registeredBy === email){
                     courseToReturn.push(enroll);
@@ -588,6 +588,74 @@ router.post("/add-authorized-list", (req, res) => {
                 res.sendStatus(200);
             }
         }
+    })
+
+})
+
+router.post("/deleteEnrollment", (req, res) => {
+
+    const courseID = req.body.courseID;
+    let record;
+
+    console.log("id: " + courseID);
+    
+    Enrollment.findOneAndUpdate({courseID: courseID}, {$pull: {records: req.body.enrollment}}, (err, foundCourse) => {
+
+        if(err){
+            console.log(err);
+            res.sendStatus(403);
+        }else{
+            if(foundCourse){
+                console.log("Found course in Enrollment");
+                WaitingList.findOne({courseID: courseID}, (err, foundCourse) => {
+                    if(err){
+                        console.log(err);
+                        res.sendStatus(403);
+                    }else{
+                        if(foundCourse.records.length > 0){
+                            console.log("Found records in waitinglist");
+                            record = foundCourse.records[0];
+
+                            WaitingList.findOneAndUpdate({courseID: courseID}, {$pop: {records: -1}}, (err) => {
+                                if(err){
+                                    console.log(err);
+                                    res.sendStatus(403);
+                                }
+                            });
+
+                            Enrollment.findOneAndUpdate({courseID: courseID}, {$push: {records: record}}, (err, foundRecord) => {
+                                if(err){
+                                    console.log(err);
+                                    res.sendStatus(403);
+                                }else{
+                                    if(foundRecord){
+                                        res.sendStatus(200);
+                                    }
+                                }
+                            })
+
+                        }else{
+
+                            console.log("no records in waitinglist");
+                            
+                            Course.findOneAndUpdate({_id: courseID}, {$inc: {quota: 1}}, (err, foundCourse) => {
+                                if(err){
+                                    console.log(err);
+                                    res.sendStatus(403);
+                                }else{
+                                    console.log(foundCourse);
+                                    if(foundCourse){
+                                        res.sendStatus(200);
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        }
+
+
     })
 
 })
