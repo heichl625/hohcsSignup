@@ -96,7 +96,8 @@ export default function AuthorizedList() {
               "Content-Type": "application/x-www-form-urlencoded"
             },
             body: qs.stringify({
-                "email": username+"@hohcs.org.hk"
+                "email": username+"@hohcs.org.hk",
+                "role": "user"
             })
         };
 

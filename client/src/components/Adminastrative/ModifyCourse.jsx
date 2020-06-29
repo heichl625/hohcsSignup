@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import qs from 'qs'
 import { useEffect } from 'react';
+import CourseDetail from './CourseDetail';
 
 export default function ModifyCourse(props){
 
@@ -143,8 +144,6 @@ export default function ModifyCourse(props){
                 <Button variant="primary" size="lg" className="createBtn" type="submit">修改課程</Button>
             
             </div>
-
-            { isModified && <Redirect to="/admin"/> }
 
         </Form>
         </React.Fragment>

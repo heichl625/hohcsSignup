@@ -27,77 +27,40 @@ function ApplicationForm(){
     const fields = ["姓名", "電郵", "職員編號", "職位", "單位", "報讀課程"];
     var role = "";
 
-    function getFutureCourses(){
-
-        const futureCourseURL = "/futureCourse";
-        const futureCourseOptions = {
-            method: "GET",
-            headers: {
-              "Accept": "application/json",
-            }
-        };
-
-        fetch(futureCourseURL, futureCourseOptions)
-        .then(res => res.json())
-        .then(res => {
-            if(res.length > 0){
-                    setCourseList(res);
-                    setNewValue(prevValue => {
-    
-                        // const date = new Date(res[0].date);
-                        // const dateStr = date.toLocaleDateString();
-    
-                        return{
-                            ...prevValue,
-                            course: res[0]
-                        }
-                    })
-                }
-            console.log(newValue.course);
-            setIsDataObtained(true);
-        }).catch(err => {
-            console.log("futureCourse: " + err);
-        });
-    }
-
     useEffect( () => {
 
         if(!isDataObtained){
-            const url = "/user";
-            const options = {
-                method: "POST",
+
+            const futureCourseURL = "/futureCourse";
+            const futureCourseOptions = {
+                method: "GET",
                 headers: {
                   "Accept": "application/json",
-                  "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: qs.stringify({"username": localStorage.getItem("username")})
+                }
             };
 
-            fetch(url, options)
+            fetch(futureCourseURL, futureCourseOptions)
             .then(res => res.json())
             .then(res => {
-
-                role = res.role;
-
-                if(role === "admin"){
-                    localStorage.setItem("isAdmin", true);
-                }
-
-                setNewValue({
-                    username: res.name,
-                    email: res.username,
-                    staffid: res.staffid,
-                    post: res.post,
-                    dept: res.dept,
-                    course: ""
-                })
+                if(res.length > 0){
+                        setCourseList(res);
+                        setNewValue(prevValue => {
+                        
+                            return{
+                                ...prevValue,
+                                course: res[0]
+                            }
+                        })
+                    }
+                console.log(newValue.course);
+                setIsDataObtained(true);
             }).catch(err => {
-                console.log("user: " + err);
+                console.log("futureCourse: " + err);
             });
-            getFutureCourses();
-        }
-            
 
+        }
+
+        
     })
 
     function enroll(course){
@@ -113,7 +76,7 @@ function ApplicationForm(){
                 "courseID": course._id, 
                 "enrollment": newValue,
                 "courseName": course.courseName,
-                "registeredBy": localStorage.getItem("username")
+                "registeredBy": localStorage.getItem("email")
             })
         };
 
@@ -140,7 +103,7 @@ function ApplicationForm(){
             },
             body: qs.stringify({
                 "enrollment": newValue,
-                "registeredBy": localStorage.getItem("username")
+                "registeredBy": localStorage.getItem("email")
             })
         };
 
@@ -246,7 +209,7 @@ function ApplicationForm(){
     <img src="https://www.hohcs.org.hk/App/Modules/Admin/Tpl/Static/upload/image/20170418/20170418125117_21846.png" className="formIcon"/>
 
     <p className="reminderText">如替其他同事報名，請填上同事資料</p>
-    <p className="reminderText">於提交名單前，請先知會上司</p>
+    <p className="reminderText">於提交名單前須先取得主管批淮</p>
 
     
     <Form className="inputForm" onSubmit={handleSubmit}>
@@ -254,8 +217,8 @@ function ApplicationForm(){
         <div className="inputRow">
             <div className="inputItem">
                 <FormGroup>
-                    <Form.Label className="inputLabel">名稱:</Form.Label>
-                    <Form.Control placeholder={fields[0]} size="lg" onChange={handleChange} value={newValue.username} name="username"></Form.Control>
+                    <Form.Label className="inputLabel">英文名稱:</Form.Label>
+                    <Form.Control placeholder={fields[0]} size="lg" onChange={handleChange} value={newValue.username} name="username" required></Form.Control>
                 </FormGroup>
             </div>
 
@@ -265,7 +228,7 @@ function ApplicationForm(){
                 <FormGroup className="inputItem">
                     <Form.Label className="inputLabel">電郵:</Form.Label>
                     <InputGroup>
-                        <Form.Control placeholder={fields[1]} size="lg" name="email" type="text" onChange={handleChange} value={newValue.email} className="input"></Form.Control>
+                        <Form.Control placeholder={fields[1]} size="lg" name="email" type="text" onChange={handleChange} value={newValue.email} className="input" required></Form.Control>
                         <InputGroup.Append>
                             <InputGroup.Text>@hohsc.org.hk</InputGroup.Text>
                         </InputGroup.Append>
@@ -280,7 +243,7 @@ function ApplicationForm(){
 
                 <FormGroup>
                     <Form.Label className="inputLabel">職員編號:</Form.Label>
-                    <Form.Control placeholder={fields[2]} size="lg" onChange={handleChange} value={newValue.staffid} name="staffid"></Form.Control>
+                    <Form.Control placeholder={fields[2]} size="lg" onChange={handleChange} value={newValue.staffid} name="staffid" required></Form.Control>
                 </FormGroup>
             </div>
 
@@ -289,7 +252,7 @@ function ApplicationForm(){
             <div className="inputItem">
                 <FormGroup>
                     <Form.Label className="inputLabel">職位:</Form.Label>
-                    <Form.Control placeholder={fields[3]} size="lg" onChange={handleChange} value={newValue.post} name="post"></Form.Control>
+                    <Form.Control placeholder={fields[3]} size="lg" onChange={handleChange} value={newValue.post} name="post" required></Form.Control>
                 </FormGroup>
             </div>
 
@@ -301,7 +264,7 @@ function ApplicationForm(){
             <div className="inputItem">
                 <FormGroup>
                     <Form.Label className="inputLabel">單位:</Form.Label>
-                    <Form.Control placeholder={fields[4]} size="lg" onChange={handleChange} value={newValue.dept} name="dept"></Form.Control>
+                    <Form.Control placeholder={fields[4]} size="lg" onChange={handleChange} value={newValue.dept} name="dept" required></Form.Control>
                 </FormGroup>
             </div>
 
@@ -310,7 +273,7 @@ function ApplicationForm(){
             <div className="inputItem">
                 <FormGroup>
                     <Form.Label className="inputLabel">報讀課程:</Form.Label>
-                    <Form.Control size="lg" onChange={handleChange} name="course" as="select" className="courseSelection">
+                    <Form.Control size="lg" onChange={handleChange} name="course" as="select" className="courseSelection" required>
                         <option>請選擇課程</option>
                         {courseList.length > 0 && courseList.map(course => {
                             var date = new Date(course.date);

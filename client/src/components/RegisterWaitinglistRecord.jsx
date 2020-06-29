@@ -28,7 +28,7 @@ export default function RegisterWaitinglistRecord(props){
                 },
                 body: qs.stringify({
                     courseID: props.selectedCourse._id,
-                    username: localStorage.getItem("username")
+                    email: localStorage.getItem("email")
                 })
             };
 

@@ -1,145 +1,24 @@
 const express = require('express');
-const User = require('../models/user');
 const Course = require('../models/course');
 const Enrollment = require('../models/enrollment');
 const WaitingList = require('../models/waitinglist');
 const AuthorizedList = require('../models/authorizedList');
-const passport = require("passport");
-const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 
-router.post("/login",
-    passport.authenticate('local', {
-        session: false
-    }), (req, res) => {
-
-        const user = {
-            username: req.user.username,
-            password: req.user.password
-
-        };
-
-        console.log(req.user);
-        const token = jwt.sign(user, 'hohcs');
-        console.log(token);
-        return res.json({
-            user,
-            token
-        });
-    });
-
-router.post("/register", (req, res) => {
-
-    console.log(req.body);
-    const data = req.body;
-
-    const newUser = {
-        username: data.username,
-        name: data.name,
-        staffid: data.staffid,
-        dept: data.dept,
-        post: data.post,
-        role: "user"
-    }
-
-    AuthorizedList.findOne({email: newUser.username+"@hohcs.org.hk"}, (err, foundEmail) => {
+router.post("/login", (req, res) => {
+    AuthorizedList.findOne({email: req.body.email+"@hohcs.org.hk"}, (err, foundEmail) => {
         if(err){
             console.log(err);
             res.sendStatus(403);
         }else{
             if(foundEmail){
-                User.register(newUser, data.password, (err, user) => {
-                    if (err) {
-                        console.log(err);
-                        res.sendStatus(403);
-                    } else {
-            
-                        passport.authenticate('local', {
-                            session: false
-                        })(req, res, () => {
-                            console.log("inside authenticate");
-                            const user = {
-                                username: req.user.username,
-                                password: req.user.password
-                            };
-            
-                            console.log(req.user);
-                            const token = jwt.sign(user, 'hohcs');
-                            console.log(token);
-                            return res.json({
-                                user,
-                                token
-                            });
-                        })
-                    };
-            
-                })
+                res.json(foundEmail);
             }else{
-                console.log("Not Authorized");
-                res.json({msg: "Not Authorized"});
+                res.sendStatus(403);
             }
         }
-    })
-
-    
-});
-
-const checkToken = (req, res, next) => {
-    const header = req.headers['authorization'];
-
-    if (typeof header !== 'undefined') {
-        const bearer = header.split(' ');
-        const token = bearer[1];
-
-        req.token = token;
-        next();
-    } else {
-        //If header is undefined return Forbidden (403)
-        console.log("No token is sent");
-        res.sendStatus(403)
-    }
-}
-
-router.get("/isAuthenticated", checkToken, (req, res) => {
-
-    console.log("token: " + req.token);
-
-    jwt.verify(req.token, 'hohcs', (err, authorizedData) => {
-
-        if (err) {
-            console.log(err);
-            console.log('ERROR: Could not connect to the protected route');
-            res.sendStatus(403);
-        } else {
-            res.json({
-                message: 'Successful login',
-                authorizedData
-            });
-        }
-
-
-    })
-})
-
-router.post("/user", (req, res) => {
-
-    const username = req.body.username;
-
-    User.findOne({
-        username: username
-    }, (err, foundUser) => {
-        res.send(foundUser);
-    })
-
-})
-
-router.get("/logout", (req, res) => {
-    console.log("logout now");
-    console.log(req.user);
-    req.logout();
-    res.sendStatus(200);
-})
+})});
 
 router.post("/createcourse", (req, res) => {
 
@@ -266,7 +145,7 @@ router.post('/waitinglist', (req, res) => {
         staffid: req.body.enrollment.staffid,
         post: req.body.enrollment.post,
         dept: req.body.enrollment.dept,
-        registeredBy: req.body.registeredBy+"@hohcs.org.hk"
+        registeredBy: req.body.registeredBy
     }
 
     console.log("newRecord: " + newRecord);
@@ -360,7 +239,7 @@ router.post('/enroll', (req, res) => {
         staffid: req.body.enrollment.staffid,
         post: req.body.enrollment.post,
         dept: req.body.enrollment.dept,
-        registeredBy: req.body.registeredBy+"@hohcs.org.hk"
+        registeredBy: req.body.registeredBy
     }
 
     Enrollment.findOne({
@@ -491,7 +370,7 @@ router.post("/course-by-date", (req, res) => {
 router.post("/register-record", (req, res) => {
 
     const courseID = req.body.courseID;
-    const email = req.body.username+"@hohcs.org.hk";
+    const email = req.body.email;
 
     const courseToReturn = [];
 
@@ -519,7 +398,7 @@ router.post("/register-record", (req, res) => {
 router.post("/register-record-waitinglist", (req, res) => {
 
     const courseID = req.body.courseID;
-    const email = req.body.username+"@hohcs.org.hk";
+    const email = req.body.email;
 
     const courseToReturn = [];
 
@@ -567,6 +446,7 @@ router.post("/deleteCourse", (req, res) => {
 router.post("/add-authorized-list", (req, res) => {
 
     const email = req.body.email;
+    const role = req.body.role;
 
     AuthorizedList.findOne({email: email}, (err, foundEmail) => {
         if(err){
@@ -578,7 +458,8 @@ router.post("/add-authorized-list", (req, res) => {
             }else{
 
                 const newItem = new AuthorizedList({
-                    email: email
+                    email: email,
+                    role: role
                 });
 
                 console.log(email);

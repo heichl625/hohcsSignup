@@ -30,6 +30,11 @@ footer{
     margin-right: auto;
 }
 
+.subtitle{
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
 .formInput{
     width: 500px;
     display: block;

@@ -9,28 +9,8 @@ import RegisterRecord from "./RegisterRecord";
 import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import AuthorizedList from "./Adminastrative/AuthorizedList";
-
 
 export default function App(props) {
-
-    
-
-    useEffect(() => {
-        axios.get("/isAuthenticated",  
-        { headers:
-            { 
-                "Content-Type" : "Application/json",
-                'Accept': 'application/json',
-                "Authorization": `Bearer ${localStorage.getItem('userToken')}`
-            }
-        })
-        .then(res => {
-            localStorage.setItem("isAuthorized", true);
-        }).catch(function (error) {
-            localStorage.removeItem("isAuthorized");
-        });
-    })
 
     
     return(

@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const cors = require('cors');
 const path = require('path');
-const passport = require("./passport/passport");
 
 const routes = require('./routes');
 
@@ -23,25 +22,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cors());
-
-app.use(session({
-    secret: process.env.JWT_SECRECT || "hohcsSecret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: false,
-        secure: false,
-        maxAge: 2000000
-    }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(function (req, res, next) {
-    res.locals.currentUser = req.session.userId;
-    next();
-})
 
 app.use('/', routes);
 
