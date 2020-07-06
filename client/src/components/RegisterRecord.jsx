@@ -99,7 +99,7 @@ export default function RegisterRecord(){
             <Nav defaultActiveKey="" className="flex-column" onSelect={(selectedKey) => handleSidebarClick(selectedKey)}>
                 {!noCourse && courses.map(course => {
                     const date = new Date(course.date);
-                    return <Nav.Link eventKey={course._id} className="courseLink">{course.courseName} {date.toLocaleDateString()}</Nav.Link>
+                    return <Nav.Link eventKey={course._id} className="courseLink">{course.courseName} {date.getDate()}/{date.getMonth()+1}/{date.getFullYear()}</Nav.Link>
                 })}
             </Nav>
 

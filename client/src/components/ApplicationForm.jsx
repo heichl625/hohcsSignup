@@ -15,7 +15,7 @@ function ApplicationForm(){
     const [newValue, setNewValue] = useState({
         username: "",
         email: "",
-        staffid: "",
+        staffid: "CS",
         post: "",
         dept: "",
         course: "",
@@ -251,7 +251,7 @@ function ApplicationForm(){
 
             <div className="inputItem">
                 <FormGroup>
-                    <Form.Label className="inputLabel">職位:</Form.Label>
+                    <Form.Label className="inputLabel">職位簡稱（英文）:</Form.Label>
                     <Form.Control placeholder={fields[3]} size="lg" onChange={handleChange} value={newValue.post} name="post" required></Form.Control>
                 </FormGroup>
             </div>
@@ -263,7 +263,7 @@ function ApplicationForm(){
 
             <div className="inputItem">
                 <FormGroup>
-                    <Form.Label className="inputLabel">單位:</Form.Label>
+                    <Form.Label className="inputLabel">單位簡稱（英文）:</Form.Label>
                     <Form.Control placeholder={fields[4]} size="lg" onChange={handleChange} value={newValue.dept} name="dept" required></Form.Control>
                 </FormGroup>
             </div>
