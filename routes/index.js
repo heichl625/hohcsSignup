@@ -493,28 +493,30 @@ router.post("/deleteEnrollment", (req, res) => {
                         console.log(err);
                         res.sendStatus(403);
                     }else{
-                        if(foundCourse.records){
-                            console.log("Found records in waitinglist");
-                            record = foundCourse.records[0];
+                        if(foundCourse){
 
-                            WaitingList.findOneAndUpdate({courseID: courseID}, {$pop: {records: -1}}, (err) => {
-                                if(err){
-                                    console.log(err);
-                                    res.sendStatus(403);
-                                }
-                            });
-
-                            Enrollment.findOneAndUpdate({courseID: courseID}, {$push: {records: record}}, (err, foundRecord) => {
-                                if(err){
-                                    console.log(err);
-                                    res.sendStatus(403);
-                                }else{
-                                    if(foundRecord){
-                                        res.sendStatus(200);
+                            if(foundCourse.records){
+                                console.log("Found records in waitinglist");
+                                record = foundCourse.records[0];
+    
+                                WaitingList.findOneAndUpdate({courseID: courseID}, {$pop: {records: -1}}, (err) => {
+                                    if(err){
+                                        console.log(err);
+                                        res.sendStatus(403);
                                     }
-                                }
-                            })
-
+                                });
+    
+                                Enrollment.findOneAndUpdate({courseID: courseID}, {$push: {records: record}}, (err, foundRecord) => {
+                                    if(err){
+                                        console.log(err);
+                                        res.sendStatus(403);
+                                    }else{
+                                        if(foundRecord){
+                                            res.sendStatus(200);
+                                        }
+                                    }
+                                })
+                            }
                         }else{
 
                             console.log("no records in waitinglist");
