@@ -493,7 +493,7 @@ router.post("/deleteEnrollment", (req, res) => {
                         console.log(err);
                         res.sendStatus(403);
                     }else{
-                        if(foundCourse.records.length > 0){
+                        if(foundCourse.records){
                             console.log("Found records in waitinglist");
                             record = foundCourse.records[0];
 
