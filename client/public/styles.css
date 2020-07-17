@@ -235,6 +235,12 @@ footer{
     left: 50%;
     font-size: 2rem;
     transform: translateX(-50%);
+    width: 55%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
 }
 
 .deleteBtn{
